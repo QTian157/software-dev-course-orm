@@ -55,6 +55,9 @@ public class ContactController {
     @PostMapping("/{contactId}/addresses")
     public Contact createAddress(@PathVariable int contactId, @RequestBody Address newAddress) {
         Contact contact = contactRepository.findById(contactId).orElse(null);
+        if (contact == null) {
+            return null;
+        }
         newAddress.setContact(contact);
         contact.getAddresses().add(newAddress);
         return contactRepository.save(contact);
@@ -64,6 +67,9 @@ public class ContactController {
     @DeleteMapping("/{contactId}/addresses/{addressId}")
     public void deleteAddress(@PathVariable int contactId, @PathVariable int addressId){
         Contact contact = contactRepository.findById(contactId).orElse(null);
+        if (contact == null) {
+            return ;
+        }
         Address addressToDelete = null;
         for (Address address: contact.getAddresses()) {
             if (address.getId() == addressId) {
