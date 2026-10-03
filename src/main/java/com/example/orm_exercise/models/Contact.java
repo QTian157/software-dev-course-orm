@@ -1,11 +1,11 @@
 package com.example.orm_exercise.models;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
+
+import java.util.List;
 
 @Entity
+@Table(name = "contacts")
 public class Contact {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -13,6 +13,9 @@ public class Contact {
     private String name;
     private String email;
     private String phoneNumber;
+
+    @OneToMany(mappedBy = "contact", cascade = CascadeType.ALL)
+    private List<Address> addresses;
 
     public int getId() {
         return id;
@@ -54,4 +57,7 @@ public class Contact {
         this.email = email;
         this.phoneNumber = phoneNumber;
     }
+
+    public List<Address> getAddresses() {return addresses;}
+    public void setAddresses(List<Address> addresses) {this.addresses = addresses;}
 }
