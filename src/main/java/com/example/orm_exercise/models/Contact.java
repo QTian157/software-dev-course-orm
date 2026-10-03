@@ -13,8 +13,8 @@ public class Contact {
     private String name;
     private String email;
     private String phoneNumber;
-
-    @OneToMany(mappedBy = "contact", cascade = CascadeType.ALL)
+    // orphanRemoval = true: delete the info from list and the database
+    @OneToMany(mappedBy = "contact", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Address> addresses;
 
     public int getId() {
